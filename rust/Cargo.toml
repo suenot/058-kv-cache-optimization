@@ -1,0 +1,56 @@
+[package]
+name = "kv_cache_trading"
+version = "0.1.0"
+edition = "2021"
+authors = ["ML Trading Contributors"]
+description = "KV-Cache optimization for algorithmic trading with Transformers"
+license = "MIT"
+repository = "https://github.com/suenot/machine-learning-for-trading"
+
+[dependencies]
+# Deep learning
+tch = "0.14"  # PyTorch bindings for Rust
+ndarray = { version = "0.15", features = ["rayon"] }
+ndarray-rand = "0.14"
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+
+# HTTP client for Bybit API
+reqwest = { version = "0.11", features = ["json"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Utilities
+thiserror = "1.0"
+anyhow = "1.0"
+log = "0.4"
+env_logger = "0.10"
+chrono = { version = "0.4", features = ["serde"] }
+
+# Numeric
+num-traits = "0.2"
+
+[dev-dependencies]
+criterion = "0.5"
+tokio-test = "0.4"
+
+[[bench]]
+name = "cache_benchmark"
+harness = false
+
+[[example]]
+name = "inference"
+path = "examples/inference.rs"
+
+[[example]]
+name = "streaming"
+path = "examples/streaming.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
